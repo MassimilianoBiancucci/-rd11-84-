@@ -59,7 +59,7 @@ struct Neuron {
 	float absOutSum = 0; //somma in valore assoluto degli input del neurone
 	float absDeltaSum = 0; //somma in valore assoluto delle variazioni dei pesi
 	float BPerr = 0; //errore di retropropagazione
-	int neurIdx = 0; //ogni neurone Ë contraddistinto da un indice unico che si riferisce alla sua posizione
+	int neurIdx = 0; //ogni neurone √® contraddistinto da un indice unico che si riferisce alla sua posizione
 };
 
 struct Layer {
@@ -106,8 +106,8 @@ public:
 	////////////////////////////////////////////////MANIPOLAZIONE DATASET//////////////////////////////////////
 	void readTimeSeriesCsv(string filename, int outStep, int inEx, float trainingPerc) {
 		//outStep - rappresenta il numero di valori per esempio output
-		//inEx - Ë il numero di esempi output precedenti che vengono passati in ogni esempio input
-		//trainingPerc - Ë la percentuale di dataset da usare come trainingset
+		//inEx - √® il numero di esempi output precedenti che vengono passati in ogni esempio input
+		//trainingPerc - √® la percentuale di dataset da usare come trainingset
 		cout << "caricamento del file " << filename << endl;
 		ifstream file(filename + ".csv");
 		stringstream stream;
@@ -136,7 +136,7 @@ public:
 		int nEx = esempi.size() - inEx;
 		int ntrainEx = (int)((trainingPerc / 100) * nEx);
 		int nvalidateEx = nEx - ntrainEx;
-		int sPos = 0, ePos = inEx, pos = 0; // il passo Ë outStep
+		int sPos = 0, ePos = inEx, pos = 0; // il passo √® outStep
 		int inId = 0, outId = 0;
 		for (int i = 0; i < nEx; i++) {
 			pos = 0, inId = 0, outId = 0;
@@ -632,7 +632,7 @@ public:
 	/////////////////////////////////////////////////////FUNZIONI VARIE///////////////////////////////////////////////////////////
 	float DsigOut(int Layer, int Neuron) {
 		//derivata della funzione sigmoide (Y*(1-Y)) 
-		//RICORDA di aggiungere k se implementi la sensibilit‡ della sigmoide
+		//RICORDA di aggiungere k se implementi la sensibilit√† della sigmoide
 		return Layers[Layer].Neurons[Neuron].output*(1 - Layers[Layer].Neurons[Neuron].output);
 	}
 	float sigmoid(float x) { return 1 / (1 + exp(-x)); } // Sigmoide
@@ -716,7 +716,7 @@ public:
 		for (int i = 0; i < Layers[lyr].numNeurons; i++) {
 			Layers[lyr].Neurons[i].output += Layers[lyr].Neurons[i].bayes;
 		}
-		// se la variabile absSum Ë true sommo il bayes in valore assoluto alla variabile absOutSum
+		// se la variabile absSum √® true sommo il bayes in valore assoluto alla variabile absOutSum
 		if (absSum == true) { for (int i = 0; i < Layers[lyr].numNeurons; i++) { Layers[lyr].Neurons[i].absOutSum += abs(Layers[lyr].Neurons[i].bayes); } }
 	}
 	void resetPotential() {
@@ -941,7 +941,7 @@ public:
 
 	////////////////////////////////////////////////FUNZIONI CREAZIONE RETE///////////////////////////////////////////////////////
 	//CREAZIONE RETE QUADRATA
-	void qubeNet(int Nlayers, int Ncolumns, int input, int output, bool c, float initValue = 0.01f) { //TODO inserire n∞ neuroni di input e output!!
+	void qubeNet(int Nlayers, int Ncolumns, int input, int output, bool c, float initValue = 0.01f) { //TODO inserire n¬∞ neuroni di input e output!!
 		// testata e funzionante
 		// nlayers - numero layer della rete
 		// Ncolumns - numero neuroni per strato
@@ -1030,7 +1030,7 @@ public:
 	}
 	//CREAZIONE RETE QUADRATA COMPLETAMENTE CONNESSA
 	void qubeNetFC(int Nlayers, int Ncolumns, int input, int output, bool c, float initValue = 0.01f) {
-		//TODO inserire n∞ neuroni di input e output!!
+		//TODO inserire n¬∞ neuroni di input e output!!
 		// testata e funzionante
 		// nlayers - numero layer della rete
 		// Ncolumns - numero neuroni per strato
@@ -1216,7 +1216,7 @@ public:
 
 		float delta;
 
-		if (map.size() == 0) { cout << "Errore ... la mappatura degli output non Ë stata settata!!"; return; }
+		if (map.size() == 0) { cout << "Errore ... la mappatura degli output non √® stata settata!!"; return; }
 
 		for (int i = 0; i < Layers[nLayers - 1].numNeurons; i++) {
 			delta = map[i].maxValue - map[i].minValue;
@@ -1284,7 +1284,7 @@ public:
 		float delta;
 
 		if (map.size() == 0) {
-			cout << "Errore ... la mappatura degli output non Ë stata settata!!" << endl;
+			cout << "Errore ... la mappatura degli output non √® stata settata!!" << endl;
 			return;
 		}
 
@@ -1654,7 +1654,7 @@ public:
 	void cutMadArc(int maxCut, int alfa) {
 		//!!!la procedura supporta soltanto reti ad anello su un solo layer!!!
 		//maxCut rappresenta il numero massimo di rami da tagliare in questa esecuzione
-		//alfa rappresenta il coefficiente di soglia percentuale sotto il quale il ramo puo essere tagliato (la soglia Ë una percentuale)
+		//alfa rappresenta il coefficiente di soglia percentuale sotto il quale il ramo puo essere tagliato (la soglia √® una percentuale)
 		float Wsum = 0;
 		u_int Wn = 0;
 		float Wmax = std::numeric_limits<float>::min();
@@ -2065,7 +2065,7 @@ __global__ void CUDAbayesInput(float *NeuronOut, float *Bayes, int start, int en
 __global__ void CUDAlayerInput(float *weights, int *ArcIn, int *ArcOut, float *NeuronOut, int start, int end) {
 	unsigned int i = start + (blockIdx.x * blockDim.x) + threadIdx.x;
 	if (i <= end) {
-		atomicAdd(&NeuronOut[ArcIn[i]], NeuronOut[ArcOut[i]] * weights[i]); //addizione bloccante non permette ad altri thread di sovrascrivere il falore finche l'operazione non Ë completata
+		atomicAdd(&NeuronOut[ArcIn[i]], NeuronOut[ArcOut[i]] * weights[i]); //addizione bloccante non permette ad altri thread di sovrascrivere il falore finche l'operazione non √® completata
 		//printf("Neurone %d ( %f ) += Neuron %d ( %f ) * peso ( %f ) \n", ArcIn[i], NeuronOut[ArcIn[i]], ArcOut[i], NeuronOut[ArcOut[i]], weights[i]);
 		//NeuronOut[ArcIn[i]] += NeuronOut[ArcOut[i]] * weights[i];
 	}
@@ -2316,11 +2316,6 @@ public:
 		double elapsedMilliseconds = 0;
 		double elapsedInMilliseconds = 0;
 
-		//debug////////////
-		int en = 0;
-		float delta = 0;
-		//////////////////
-
 		for (int it = 0; it < Niter; it++) { //scorro le iterazioni
 
 			t0 = PerformanceCounter();
@@ -2333,21 +2328,9 @@ public:
 				numOfBlocksA = (floorf(NeuronOut.size() / ThxBlock) + 1);
 				CUDAresetVector << <numOfBlocksA, ThxBlock >> > (dev_NeuronOut, NeuronOut.size());
 
-				//////////////////////////////DEBUG///////////////////////////////
-				//cudaStatus = cudaMemcpy(CNeuronOut, dev_NeuronOut, NeuronOut.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(CNeuronOut, CNeuronOut + NeuronOut.size(), NeuronOut.begin());
-				///////////////////////////////////////////////////////////////////
-
 				//imposto i valori di input ai neuroni dello strato input
 				numOfBlocksA = (floorf(inputN / ThxBlock) + 1);
 				CUDAsetInput << <numOfBlocksA, ThxBlock >> > (dev_NeuronOut, inputN, exampleRef, dev_examples);
-
-				//////////////////////////////DEBUG///////////////////////////////
-				//cudaStatus = cudaMemcpy(CNeuronOut, dev_NeuronOut, NeuronOut.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(CNeuronOut, CNeuronOut + NeuronOut.size(), NeuronOut.begin());
-				///////////////////////////////////////////////////////////////////
 
 				//propagazione dell'input nella rete
 
@@ -2376,11 +2359,6 @@ public:
 						CUDAlayerInput << <numOfBlocksA, ThxBlock >> > (dev_weights, dev_ArcIn, dev_ArcOut, dev_NeuronOut, startA, endA); //propago l'output dei neuroni al prossimo/i layer
 						CUDAbayesInput << < numOfBlocksN, ThxBlock >> > (dev_NeuronOut, dev_Bayes, startN, endN); //applico il contributo dei bayes all output dei neuroni del layer corrente 
 						CUDAsigLayer << <numOfBlocksN, ThxBlock >> > (dev_NeuronOut, startN, endN); //applico la sigmoide allo stato di attivazione dei neuroni
-						//////////////////////////////DEBUG/////////////////////////////////
-						cudaStatus = cudaMemcpy(CNeuronOut, dev_NeuronOut, NeuronOut.size() * sizeof(float), cudaMemcpyDeviceToHost);
-						if (cudaCheckStatus(cudaStatus) == true) goto Error;
-						copy(CNeuronOut + outputRef, CNeuronOut + NeuronOut.size(), NeuronOut.begin() + outputRef);
-						///////////////////////////////////////////////////////////////////
 					}
 				}
 
@@ -2392,21 +2370,9 @@ public:
 				numOfBlocksN = (floorf(BPerr.size() / ThxBlock) + 1);
 				CUDAresetVector << <numOfBlocksN, ThxBlock >> > (dev_BPerr, BPerr.size());
 
-				//////////////////////////////DEBUG///////////////////////////////
-				//cudaStatus = cudaMemcpy(CBPerr, dev_BPerr, BPerr.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(CBPerr, CBPerr + BPerr.size(), BPerr.begin());
-				///////////////////////////////////////////////////////////////////
-
 				CUDAresetVar <<<1, 1 >>> (dev_MeanErr);
 				CUDAoutputErr << <numOfBlocksOut, ThxBlock >> > (dev_NeuronOut, outputRef, NeuronOut.size(), inputN, dev_BPerr, dev_examples, exampleRef, dev_mapMaxOut, dev_mapMinOut, dev_MeanErr);
 				cudaMemcpy(CMeanErr, dev_MeanErr, sizeof(float), cudaMemcpyDeviceToHost);
-				//////////////////////////////DEBUG///////////////////////////////
-				//cudaStatus = cudaMemcpy(CBPerr, dev_BPerr, BPerr.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(CBPerr, CBPerr + BPerr.size(), BPerr.begin());
-
-				///////////////////////////////////////////////////////////////////
 
 				////////////////////////////////////visualizzazione dell'esempio///////////////////////////////////
 				if (en == t) {
@@ -2464,20 +2430,6 @@ public:
 
 				CUDAapplyWeightCorrections << <numOfBlocksA, ThxBlock >> > (eps, dev_NeuronOut, dev_BPerr, dev_weights, dev_ArcIn, dev_ArcOut, weights.size());
 				CUDAapplyBayesCorrections << <numOfBlocksN, ThxBlock >> > (eps, dev_BPerr, dev_Bayes, startN, endN);
-
-				////////////////////DEBUG SECTION////////////////////////
-				//cudaStatus = cudaMemcpy(Cweights, dev_weights, weights.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(Cweights, Cweights + weights.size(), weights.begin());
-
-				//cudaStatus = cudaMemcpy(CBayes, dev_Bayes, Bayes.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(CBayes, CBayes + Bayes.size(), Bayes.begin());
-
-				//cudaStatus = cudaMemcpy(CBPerr, dev_BPerr, BPerr.size() * sizeof(float), cudaMemcpyDeviceToHost);
-				//if (cudaCheckStatus(cudaStatus) == true) goto Error;
-				//copy(CBPerr, CBPerr + BPerr.size(), BPerr.begin());
-				/////////////////////////////////////////////////////////
 
 			}
 
@@ -2781,7 +2733,7 @@ public:
 			return true;
 		}
 	}
-	//stampa a schermo le principali propriet‡ della scheda
+	//stampa a schermo le principali propriet√† della scheda
 	void printDeviceSpecs() {
 
 		printf("\nDevice: %s\n", prop.name);
@@ -2816,13 +2768,13 @@ public:
 		size += sizeof(NeuronOut[0])*NeuronOut.size(); //dimensione del vettore contenente gli output dei neuroni
 		size += sizeof(Bayes[0])*Bayes.size(); //dimensione del vettore contenente i bayes
 		size += sizeof(BPerr[0])*BPerr.size(); //dimensione del vettore contenente 
-		size += sizeof(priority[0])*priority.size(); // dimensione del vettore priorit‡
+		size += sizeof(priority[0])*priority.size(); // dimensione del vettore priorit√†
 		size += sizeof(examples[0])*examples.size(); //dimensione del vettore di esmpio
 		if (mesureUnit == "B") { scale = 1; } //Byte
 		else if (mesureUnit == "KB") { scale = 1024; } //Kilobyte
 		else if (mesureUnit == "MB") { scale = 1024 * 1024; } // Megabyte
 		else if (mesureUnit == "GB") { scale = 1024 * 1024 * 1024; } //Gigabyte
-		else { cout << "L'unit‡ di misura non Ë corretta!!" << endl; return 0.0f; }
+		else { cout << "L'unit√† di misura non √® corretta!!" << endl; return 0.0f; }
 		return (float)(size / scale);
 	}
 	template<typename T, typename A>
@@ -2834,7 +2786,7 @@ public:
 		else if (mesureUnit == "KB") { scale = 1024; } //Kilobyte
 		else if (mesureUnit == "MB") { scale = 1024 * 1024; } // Megabyte
 		else if (mesureUnit == "GB") { scale = 1024 * 1024 * 1024; } //Gigabyte
-		else { cout << "L'unit‡ di misura non Ë corretta!!" << endl; return 0.0f; }
+		else { cout << "L'unit√† di misura non √® corretta!!" << endl; return 0.0f; }
 		return (float)((float)size /(float)scale);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2875,123 +2827,31 @@ public:
 };
 
 
-int main()
-{
-	CUDAcore gtx760(0);
-	gtx760.printDeviceSpecs();
+
+/*
+EXAMPLE:
+	
+	CUDAcore gtx760(0); //create connection with gpu
+	gtx760.printDeviceSpecs(); //print specs of gpu
 
 	int layer = 10;
 	int columns = 50;
 	int out = 4;
 	int in = 9;
-
-	MLP a("cudaTest");
-	//a.getNetParams();
+	
+	
+	MLP a("cudaTest"); //create mlp object 
 	a.qubeNet(layer, columns, in, out, true, 0.0001f);
 	a.setNetMap(800, 0);
-	//a.genTestDataset(500, in, out, 0.1, 3, 0);
-	a.getDataset("datnc");
-	a.datasetOffset(200.0f);
-	//float test[] = {2, 2, 2, 2, 2, 2};
-	//a.BP(5, 0.0000000001f, 0, 1);
-	gtx760.cudaNetCopyMLP(&a);
-	gtx760.cudaNetCopyExamples(&a);
+	a.getDataset("datnc"); //loading dataset from file
+	a.datasetOffset(200.0f); //adding an offset to the dataset
 	
-	//da usare senza " gtx760.hostCUDAtrainingNet "
-	//gtx760.hostCUDAuploadNetParams();
-	//gtx760.hostCUDAInputNet(test, 1024);
-	//gtx760.hostCUDAdownloadNetParams();
-
-	gtx760.hostCUDAtrainingNet(10.0e-10f, 200, 256);
-	gtx760.cudaNetPasteMLP(&a);
-
-	a.saveNet("datncNet-l(5)-c(60)-FC");
-
-	a.BP(5, 10.0e-10f, 0, 1);
-
-	a.saveNet("CpuTest5");
-	/*
-	system("pause");
-	int layer = 3;
-	int columns = 50;
-	int out = 7;
-	int in = 7;
-	//MLP a("GenomaX2");
-	MLP b("GenomaX2");
-	//b.getNetParams();
-	b.qubeNetFC(layer, columns, in, out, false);
-
-	//DatasetCore data;
-	//data.readTimeSeriesCsv("LottoHistory", out, in/out, 100);
-	//b.examples = data.getDataset(0);
-	//b.saveDataset("LotoDatatset");
-
-	//b.getDataset("LotoDatatset");
-	//vector<int> dims = {in, columns, out};
-	//b.customNet(layer, dims, 1);
-
-	Hopfield a("genoma4", &b);
-	StructuralLearning SL(&b, &a);
-
-	//a.saveNet("GenomaX");
-	////a.toroidNet(layer, dims, 0.3);
-	////a.supportNet(1);
-	b.setNetMap(4, 0);
-
-	//cout << "caricamento eseguito" << endl;
-	b.genTestDataset(50, in, out, 0.2, 3, 2);
-	b.BP(200, 0.0001, 0.2, 5);
-	//SL.StructuralBP(200, 0.2, 0.3, 0.4, 0.001, -0.001, 8, 5, 0.05, 3, 40);
-	////a.getDataset("Dataset");
-	////cout << "dataset genrato" << endl;
-
-	//b.BP(200, 0.2, 0.3, 0.9);
-	////cout << "addestramento completato" << endl;
-	//a.saveNet("GenomaX5");
-	//b.saveNet("GenomaX");
-	b.saveNet("GenomaX2");
-	//cout << "salvataggio eseguito" << endl;
-	////system("pause");
-	*/
-	return 0;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*NOTE:
-	_______________________________________________________________________________________________________________________________
-	TASKS COMPLETATE:
-
-	-Hopfield::suportnet() ora crea una struttura su una sola linea con le connessioni nello stesso ordine e verso con i rispettvi
-		neuroni delle due reti
-
-	-fuzioni aggiornate per il cambio di puntamento dei vettori di propagazione:
-		stampInputInfluences(), stampOutputErrorPropagation(), initVectorsProfiler(), resetVectorsProfiler(), StructuralBP(), inputNetProfiler()
-	_______________________________________________________________________________________________________________________________
-
-	TASKS TODO:
-
-	-creare delle funzioni di eliminazione arco e neurone apposite per la struttura mlp + supportNet + binds nella classe Hopfield
-		e rimettere aposto le funzioni di eliminazione arco e neurone nella classe network
-
-	-rivedere la funzione NetInputProfiler() nella procedura per il calcolo dell' influnza dell'input (procedura inefficiente)
-
-	-determinare una funzione che possa essere utilizzata anche per Hopfield::AssociativeCorrelation()
-
-	-scrivere la funzione di apprendimento della rete hopfield di supporto
-
-	-aggiungere la propagazione temporle pesata dell'output del neurone
-
-	-verificare che non ci siano bug nella funzione trainSupportNet() (possibile scambio di indici)
-
-	-nella funzione taglia archi si possono verificare dei problemi eliminando degli archi che eliminano neuroni a catena
-		il problema Ë stato risolto per il taglio indiretto di un neurone ma non per piu consecutivi per i quali non viene
-		eliminato il bind e probabilmente alcuni parametri non vengono modificati
-
-	-La funzione hostCUDAtrainingNet() Ë affetta da RACE CONDITIONS rivedere l'algoritmo per minimizare l'utilizzo
-		delle Atomic functions .. la correzione va estesa alle funzioni che costruiscono la struttura linearizata della rete da
-		passare alla GPU
-	________________________________________________________________________________________________________________________________
-
-	POSSIBILI PATCH:
-
-	*/
+	gtx760.cudaNetCopyMLP(&a); //prepare structure of net to be uploded to gpu memory
+	gtx760.cudaNetCopyExamples(&a); //prepare dataset to be uploded to gpu memory
+	gtx760.hostCUDAtrainingNet(10.0e-10f, 200, 256); //upload nedded structure into gpu and start accelerated training
+	gtx760.cudaNetPasteMLP(&a); //copy trained model into cpu memory
+	a.saveNet("datncNet-l(5)-c(60)-FC"); //saving model
+	a.BP(5, 10.0e-10f, 0, 1); //continue to train net into cpu
+	a.saveNet("CpuTest5"); //new model saving 
+	
+*/
