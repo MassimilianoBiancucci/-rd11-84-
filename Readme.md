@@ -3,5 +3,5 @@ It's a machine learning library, written in C++, that implement classes to creat
 Actualy  the library implement classes and methods to work with MLPs and an incompleted draft of the tools needed to work with LSTM networks.
 
 # Files
-In the datasets and templates folders there are files with the syntax that the library uses for loading and saving such objects
+In the datasets and models folders there are files with the syntax that the library uses for loading and saving such objects
 
